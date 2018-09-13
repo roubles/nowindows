@@ -51,4 +51,10 @@ download_script
 chmod_script
 defaults write com.apple.loginwindow LoginHook $INSTALL_PATH
 echo 'Installation complete!'
+output=`defaults read com.apple.loginwindow LoginHook`
+if [ "$output" = "/usr/local/bin/loginfix.sh" ]; then
+    echo 'Installation successful'
+else
+    echo 'Installation unsuccessful'
+fi
 exit 0

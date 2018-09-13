@@ -13,5 +13,5 @@ Reboot your mac. Notice windows don't reopen. Voila.
 
 ## Uninstall
 ```
-$ curl -sSL https://raw.github.com/roubles/maclock/master/webuninstall.sh | bash
+curl -sSL https://raw.github.com/roubles/maclock/master/webuninstall.sh | bash
 ```

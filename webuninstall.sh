@@ -25,6 +25,6 @@
 INSTALL_PATH="/usr/local/bin/loginfix.sh"
 
 rm -rf $INSTALL_PATH
-defaults delete com.apple.loginwindow LoginHook $INSTALL_PATH
+defaults delete com.apple.loginwindow LoginHook
 echo 'Un-Installation complete!'
 exit 0

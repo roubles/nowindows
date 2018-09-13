@@ -51,5 +51,4 @@ download_script
 chmod_script
 defaults write com.apple.loginwindow LoginHook $INSTALL_PATH
 echo 'Installation complete!'
-echo "Please execute the command: '$APP_NAME --help' in your terminal."
 exit 0

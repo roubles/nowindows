@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 #
-# maclock CLI Installer
-#
 # MIT LICENSE - Copyright (c) May 2015 Rouble Matta
 #
 # Permission is hereby  granted, free of charge, to  any person obtaining a copy
@@ -22,7 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE  OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-APP_NAME='nowindows'
 SCRIPT_PATH="/usr/local/bin/loginfix.sh"
 
 function create_usrlocalbin() {

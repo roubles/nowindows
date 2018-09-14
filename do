@@ -23,8 +23,7 @@
 # SOFTWARE.
 
 APP_NAME='nowindows'
-URL="https://raw.githubusercontent.com/roubles/$APP_NAME/master/scripts/loginfix.sh"
-INSTALL_PATH="/usr/local/bin/loginfix.sh"
+SCRIPT_PATH="/usr/local/bin/loginfix.sh"
 
 function create_usrlocalbin() {
     if [ ! -d /usr/local/bin/ ]; then
@@ -33,25 +32,20 @@ function create_usrlocalbin() {
     fi
 }
 
-function download_script() {
-    echo "Downloading script from: $URL..."
-    curl -sSL $URL > $INSTALL_PATH
-    if [ ! -f $INSTALL_PATH ]; then
-        echo "Error installing script."
-        exit 4
-    fi
+function create_script() {
+    echo "rm ~/Library/Preferences/ByHost/com.apple.loginwindow.*" > $SCRIPT_PATH
 }
 
 function chmod_script() {
-  chmod a+x $INSTALL_PATH
+  chmod a+x $SCRIPT_PATH
 }
 
 create_usrlocalbin
-download_script
+create_script
 chmod_script
-defaults write com.apple.loginwindow LoginHook $INSTALL_PATH
+defaults write com.apple.loginwindow LoginHook $SCRIPT_PATH
 output="$(defaults read com.apple.loginwindow LoginHook 2>&1)"
-if [ "$output" = "/usr/local/bin/loginfix.sh" ]; then
+if [ "$output" = "$SCRIPT_PATH" ]; then
     echo 'Installation successful'
     exit 0
 else

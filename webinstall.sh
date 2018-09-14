@@ -23,7 +23,7 @@
 # SOFTWARE.
 
 APP_NAME='nowindows'
-URL="https://raw.githubusercontent.com/roubles/$APP_NAME/master/scripts/$APP_NAME"
+URL="https://raw.githubusercontent.com/roubles/$APP_NAME/master/scripts/loginfix.sh"
 INSTALL_PATH="/usr/local/bin/loginfix.sh"
 
 function create_usrlocalbin() {
@@ -51,10 +51,11 @@ download_script
 chmod_script
 defaults write com.apple.loginwindow LoginHook $INSTALL_PATH
 echo 'Installation complete!'
-output=`defaults read com.apple.loginwindow LoginHook`
+output="$(defaults read com.apple.loginwindow LoginHook 2>&1)"
 if [ "$output" = "/usr/local/bin/loginfix.sh" ]; then
     echo 'Installation successful'
+    exit 0
 else
-    echo 'Installation unsuccessful'
+    echo "Installation unsuccessful. Output of default read com.apple.loginwindow LoginHook: $output"
+    exit 2
 fi
-exit 0

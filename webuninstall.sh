@@ -26,11 +26,13 @@ INSTALL_PATH="/usr/local/bin/loginfix.sh"
 
 rm -rf $INSTALL_PATH
 defaults delete com.apple.loginwindow LoginHook
-echo 'Un-Installation complete!'
-output=`defaults read com.apple.loginwindow LoginHook`
-if [ "$output" = *"does not exist"* ]; then
+output="$(defaults read com.apple.loginwindow LoginHook 2>&1)"
+output=$(echo $output|tr -d '\n') #Remove new lines
+if [[ $output =~ .*does[[:space:]]not[[:space:]]exist.* ]]
+then
     echo 'Uninstallation successful'
+    exit 0
 else
-    echo 'Uninstallation unsuccessful'
+    echo "Uninstallation unsuccessful. Output of default read com.apple.loginwindow LoginHook: $output"
+    exit 2
 fi
-exit 0

@@ -22,30 +22,16 @@
 
 SCRIPT_PATH="/usr/local/bin/loginfix.sh"
 
-function create_usrlocalbin() {
-    if [ ! -d /usr/local/bin/ ]; then
-        echo "Creating /usr/local/bin ..."
-        mkdir -p /usr/local/bin/ 
-    fi
-}
-
-function create_script() {
-    echo "rm ~/Library/Preferences/ByHost/com.apple.loginwindow.*" > $SCRIPT_PATH
-}
-
-function chmod_script() {
-  chmod a+x $SCRIPT_PATH
-}
-
-create_usrlocalbin
-create_script
-chmod_script
-defaults write com.apple.loginwindow LoginHook "$SCRIPT_PATH"
 output="$(defaults read com.apple.loginwindow LoginHook 2>&1)"
-if [ "$output" = "$SCRIPT_PATH" ]; then
-    echo 'Installation successful'
-    exit 0
+output=$(echo $output|tr -d '\n') #Remove new lines
+if [[ $output =~ .*does[[:space:]]not[[:space:]]exist.* ]]
+then
+    echo "nowindows is *not* installed"
+elif [ "$output" = "$SCRIPT_PATH" ]; then
+    echo "nowindows is installed and running!"
 else
-    echo "Installation unsuccessful. Output of default read com.apple.loginwindow LoginHook: $output"
-    exit 2
+    echo "unknown installation status"
+    exit 1
 fi
+
+exit 0

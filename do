@@ -30,7 +30,8 @@ function create_usrlocalbin() {
 }
 
 function create_script() {
-    echo "rm ~/Library/Preferences/ByHost/com.apple.loginwindow.*" > $SCRIPT_PATH
+    echo "#!/usr/bin/env bash" > $SCRIPT_PATH
+    echo "rm /Users/*/Library/Preferences/ByHost/com.apple.loginwindow.*" >> $SCRIPT_PATH
 }
 
 function chmod_script() {
